@@ -89,7 +89,10 @@ public class Sentence {
                 // If string at index is a stop word, remove that word
                 if (splits.get(i).equals(stopwords[k])) {
                     splits.remove(i);
-                    System.out.println(stopwords[k]);
+
+                }
+                if (splits.get(i).equals("of")) {
+                    splits.remove(i);
                 }
             }
         }
@@ -104,18 +107,16 @@ public class Sentence {
             // System.out.println(sentenceObj.get(k).splitSentence());
             String record;
             ArrayList<String> splitRet = sentenceObj.get(k).splitSentence();
-
             for (int i = 0; i < splitRet.size(); i++) {
                 int counter = 0;
                 record = splitRet.get(i);
                 for (int j = 0; j < splitRet.size(); j++) {
-                    if (record == splitRet.get(j)) {
+                    if (record.equals(splitRet.get(j))) {
                         counter++;
                     }
                 }
-                // Add map pair for each word in the returned array from split sentence
+                // Need find way to add duplicate words
                 map.put(splitRet.get(i), counter);
-
             }
         }
         System.out.println(sentenceObj.size());
