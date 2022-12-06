@@ -74,8 +74,7 @@ public class Sentence {
         timestamp = timecodes[1] + " " + timecodes[2] + " " + timecodes[5];
         text = values[5].toLowerCase().replaceAll("\"", "").replaceAll("\\.", "")
                 .replaceAll(",", "").replaceAll("-", "").replaceAll("!", "")
-                .replaceAll(":", "").replaceAll("\\?", "").replaceAll(";", "").replaceAll("&", "").replaceAll(")", "")
-                .replaceAll("(", "");
+                .replaceAll(":", "").replaceAll("\\?", "").replaceAll(";", "").replaceAll("&", "");
         Sentence convert = new Sentence(text, author, timestamp);
         return convert;
     }
@@ -86,13 +85,11 @@ public class Sentence {
         // Check each word in splits array for a stop word, if there, delete
         for (int i = 0; i < splits.size(); i++) {
             // Check word against all words in stop words
-            for (int j = 0; j < stopwords.length; j++) {
+            for (int k = 0; k < stopwords.length; k++) {
                 // If string at index is a stop word, remove that word
-                if (splits.get(i) == stopwords[j]) {
+                if (splits.get(i).equals(stopwords[k])) {
                     splits.remove(i);
-                } else {
-                    // Move on to next word
-                    break;
+                    System.out.println(stopwords[k]);
                 }
             }
         }
@@ -105,18 +102,23 @@ public class Sentence {
         // For each instance of a word in array, add to count
         for (int k = 0; k < sentenceObj.size(); k++) {
             // System.out.println(sentenceObj.get(k).splitSentence());
-            for (int i = 0; i < sentenceObj.get(k).splitSentence().size(); i++) {
+            String record;
+            ArrayList<String> splitRet = sentenceObj.get(k).splitSentence();
+
+            for (int i = 0; i < splitRet.size(); i++) {
                 int counter = 0;
-                for (int j = 0; j < sentenceObj.get(k).splitSentence().size(); j++) {
-                    if (sentenceObj.get(k).splitSentence().get(i) == sentenceObj.get(k).splitSentence().get(j)) {
+                record = splitRet.get(i);
+                for (int j = 0; j < splitRet.size(); j++) {
+                    if (record == splitRet.get(j)) {
                         counter++;
                     }
                 }
                 // Add map pair for each word in the returned array from split sentence
-                map.put(sentenceObj.get(k).splitSentence().get(i), counter);
+                map.put(splitRet.get(i), counter);
 
             }
         }
+        System.out.println(sentenceObj.size());
         return map;
 
     }
