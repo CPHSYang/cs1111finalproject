@@ -7,46 +7,29 @@ import java.util.Arrays;
 import java.util.Map; //place with imports
 import java.util.Collections; //place with imports
 import java.util.HashMap;
+import com.opencsv.CSVReader;
 
 public class Driver {
 
-    public static ArrayList<Sentence> objects = new ArrayList();
     private static String file = "C://Users//gabri//Downloads//FinalProject//cs1111finalproject//testdata.csv";
+    private static ArrayList<Integer> test = new ArrayList();
 
     public static void main(String args[]) {
 
         try (BufferedReader read = new BufferedReader(new FileReader(file))) {
             String line;
+            int count = 0;
+            ArrayList<Sentence> objects = new ArrayList();
+
             while ((line = read.readLine()) != null) {
-                objects.add(Sentence.convertLine(line));
+                Sentence addVal = Sentence.convertLine(line);
+                System.out.println(addVal);
+                objects.add(count, addVal);
+                count++;
             }
+            // System.out.println(objects);
         } catch (IOException exception) {
             System.out.println("File not found");
         }
-
-        System.out.println(objects);
-
-        /*
-         * HashMap<String, Integer> YOUR_HASH_MAP = Sentence.printTopWords(objects);
-         * // Copied cost - please check before done
-         * Map.Entry<String, Integer> maxEntry = null;
-         * 
-         * for (Map.Entry<String, Integer> entry : YOUR_HASH_MAP.entrySet())
-         * if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
-         * maxEntry = entry;
-         * int maxValueLen = maxEntry.getValue().toString().length();
-         * ArrayList<String> results = new ArrayList<String>();
-         * for (Map.Entry set : YOUR_HASH_MAP.entrySet()) {
-         * String value = set.getValue().toString();
-         * while (value.length() < maxValueLen)
-         * value = " " + value;
-         * results.add(value + " of " + set.getKey());
-         * }
-         * Collections.sort(results);
-         * Collections.reverse(results);
-         * for (int i = 0; i < results.size() && i < 100; i++)
-         * System.out.println(results.get(i));
-         * System.out.println(results);
-         */
     }
 }

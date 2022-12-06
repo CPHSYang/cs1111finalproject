@@ -36,7 +36,6 @@ public class Sentence {
     }
 
     public Sentence() {
-
     }
 
     public String getText() {
@@ -69,13 +68,14 @@ public class Sentence {
 
     public static Sentence convertLine(String line) {
         String[] values = line.split("\",\"");
-        String author = values[4].replaceAll("\"", "");
-        String timestamp = values[2].replaceAll("\"", "");
+        author = values[4].replaceAll("\"", "");
+        timestamp = values[2].replaceAll("\"", "");
         String[] timecodes = timestamp.split(" ");
         timestamp = timecodes[1] + " " + timecodes[2] + " " + timecodes[5];
-        String text = values[5].toLowerCase().replaceAll("\"", "").replaceAll("\\.", "")
+        text = values[5].toLowerCase().replaceAll("\"", "").replaceAll("\\.", "")
                 .replaceAll(",", "").replaceAll("-", "").replaceAll("!", "")
-                .replaceAll(":", "").replaceAll("\\?", "").replaceAll(";", "");
+                .replaceAll(":", "").replaceAll("\\?", "").replaceAll(";", "").replaceAll("&", "").replaceAll(")", "")
+                .replaceAll("(", "");
         Sentence convert = new Sentence(text, author, timestamp);
         return convert;
     }
@@ -104,6 +104,7 @@ public class Sentence {
         HashMap<String, Integer> map = new HashMap();
         // For each instance of a word in array, add to count
         for (int k = 0; k < sentenceObj.size(); k++) {
+            // System.out.println(sentenceObj.get(k).splitSentence());
             for (int i = 0; i < sentenceObj.get(k).splitSentence().size(); i++) {
                 int counter = 0;
                 for (int j = 0; j < sentenceObj.get(k).splitSentence().size(); j++) {
